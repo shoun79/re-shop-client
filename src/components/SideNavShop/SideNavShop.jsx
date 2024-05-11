@@ -18,7 +18,6 @@ const SideNavShop = () => {
 
 
 
-    console.log(categorys);
 
     return (
         <div >

@@ -33,12 +33,19 @@ const SignUp = () => {
                             console.log(createdUser);
                             updateUserProfile(name, imageUrl)
                                 .then(() => {
-                                    const userInfo = {
+                                    let userInfo = {
                                         name,
                                         email,
-                                        imageUrl,
                                         role
                                     }
+                                    if (role === 'user') {
+                                        userInfo = {
+                                            name,
+                                            email,
+
+                                        }
+                                    }
+
                                     //save user info in db
                                     setAuthToken(userInfo)
                                     setLoading(false)
@@ -69,10 +76,7 @@ const SignUp = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
-                // const userInfo = {
-                //     email: result?.user?.email,
-                //     role: 'buyer'
-                // }
+
                 setAuthToken(result.user)
                 setLoading(false)
                 Swal.fire({
@@ -180,7 +184,7 @@ const SignUp = () => {
                             <label htmlFor='password' className='text-sm me-4'>
                                 Role:
                             </label>
-                            <input disabled type="radio" name="role" className="radio" value='buyer' />Buyer
+                            <input type="radio" name="role" value='user' className="radio" defaultChecked />Buyer
                             <input type="radio" name="role" value='seller' className="radio ml-4" />Seller
                         </div>
                     </div>

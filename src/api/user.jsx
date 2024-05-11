@@ -45,8 +45,8 @@ export const getVerifyStatus = async email => {
 }
 
 
-//user host request
-export const verifyRequest = async sellerData => {
+//user seller request
+export const sendRequest = async sellerData => {
     const url = `${import.meta.env.VITE_APP_API_URL}/user/${sellerData?.email}`;
     const { data } = await axios.put(url, sellerData, {
         method: 'PUT',

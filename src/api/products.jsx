@@ -21,10 +21,57 @@ export const addProduct = async (productData) => {
 
 export const getAllProducts = async (category) => {
     const url = `${import.meta.env.VITE_APP_API_URL}/products/?category=${category}`;
-    const res = await fetch(url);
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        }
+    });
     const data = await res.json();
     return data;
 }
+//get all products
+
+export const getAdvertisedProducts = async () => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/products-advertised`;
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        }
+    });
+    const data = await res.json();
+    return data;
+}
+export const getWishListProducts = async () => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/products-wishList`;
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        }
+    });
+    const data = await res.json();
+    return data;
+}
+export const getReportProducts = async () => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/products-report`;
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        }
+    });
+    const data = await res.json();
+    return data;
+}
+
+
+
 //get a single product
 
 // export const getAProduct = async () => {
@@ -34,6 +81,8 @@ export const getAllProducts = async (category) => {
 //     const data = await res.json();
 //     return data;
 // }
+
+
 
 //get all products for seller
 export const getSellerProducts = async email => {

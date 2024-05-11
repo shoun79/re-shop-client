@@ -1,10 +1,14 @@
 import Swal from "sweetalert2";
-import { deleteProduct } from "../../api/products";
+import { deleteProduct, updateProduct } from "../../api/products";
 import { useEffect, useState } from "react";
 import EditModal from "../Modal/EditModal";
+import SmallSpinner from "../Spinner/SmallSpinner";
+
 
 const TableRow = ({ product, i, fetchProducts }) => {
     const [openModal, setOpenModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
         if (openModal) {
             document.body.style.overflow = 'hidden';
@@ -13,11 +17,9 @@ const TableRow = ({ product, i, fetchProducts }) => {
         }
         return () => document.body.style.overflow = 'auto';
     }, [openModal]);
-    //const [isEditModalOpen, setIsEditModalOpen] = useState(false)
 
 
     const handleDelete = product => {
-        console.log(product);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -44,6 +46,33 @@ const TableRow = ({ product, i, fetchProducts }) => {
             }
         });
     }
+
+    const handleAdvertised = product => {
+        setIsLoading(true)
+        const updateProductData = {
+            advertised: "true"
+
+        }
+        updateProduct(product?._id, updateProductData)
+            .then(data => {
+                if (data.modifiedCount) {
+                    fetchProducts();
+                    Swal.fire({
+                        position: "top",
+                        icon: "success",
+                        title: "Product Advertised",
+                        showConfirmButton: false,
+                        timer: 2500
+                    })
+                    setIsLoading(false)
+
+                }
+            })
+            .catch(err => {
+                setIsLoading(false)
+                console.log(err)
+            })
+    }
     return (
         <tr className="border-b border-opacity-20 dark:border-gray-700 dark:bg-gray-900">
             <td className="p-3">
@@ -60,6 +89,16 @@ const TableRow = ({ product, i, fetchProducts }) => {
             </td>
             <td className="p-3 ">
                 <p>{product.productCategory}</p>
+            </td>
+            <td className="text-center">
+                <span className=" font-semibold text-sm rounded-md ">
+                    {
+                        product?.advertised === "true" ? <span className="text-green-500">Advertised</span> : <button onClick={() => handleAdvertised(product)} className="bg-[#D1793E] hover:bg-[#dc600e] px-2 py-1 text-white mb-1"> {isLoading ? <SmallSpinner></SmallSpinner> : 'Advertise'}</button>
+                    }
+
+
+
+                </span>
             </td>
 
             <td className=" text-center">

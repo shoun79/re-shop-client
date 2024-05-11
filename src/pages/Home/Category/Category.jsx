@@ -7,26 +7,22 @@ import 'swiper/css/free-mode';
 import 'swiper/css/pagination';
 
 import { FreeMode, Pagination } from 'swiper/modules';
+import { useEffect, useState } from "react";
 
 const Category = () => {
-    const sliders = [
-        {
-            categoryName: 'Bajaj',
-            img: 'https://images.unsplash.com/photo-1629616092586-636e3010398a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YmFqYWp8ZW58MHx8MHx8fDA%3D'
-        },
-        {
-            categoryName: 'Tvs',
-            img: 'https://plus.unsplash.com/premium_photo-1681488134408-d6eb570673af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dHZzJTIwc2Nvb3RlcnxlbnwwfHwwfHx8MA%3D%3D'
-        },
-        {
-            categoryName: 'Yamaha',
-            img: 'https://images.unsplash.com/photo-1616889154907-0c5f6721dcba?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8eWFtYWhhfGVufDB8fDB8fHww'
-        },
-        {
-            categoryName: 'Honda',
-            img: 'https://images.unsplash.com/photo-1502744688674-c619d1586c9e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8SG9uZGF8ZW58MHx8MHx8fDA%3D'
-        }
-    ];
+
+    const [categorys, setCategorys] = useState([]);
+
+
+
+    useEffect(() => {
+        fetch('/categorys.json')
+            .then(res => res.json())
+            .then(data => {
+                setCategorys(data)
+            })
+    }, []);
+
     return (
         <div className="my-20 px-2">
             <div className="flex justify-between">
@@ -47,9 +43,9 @@ const Category = () => {
                 className="mySwiper pt-10"
             >
                 {
-                    sliders.map((slider, i) => <SwiperSlide key={i}>
+                    categorys.map((slider, i) => <SwiperSlide key={i}>
                         <Link to={`/shop/${slider.categoryName.toLocaleLowerCase()}`} className="flex flex-col justify-center items-center">
-                            <img className="w-52 rounded-full hover:scale-125 transition-all" src={slider.img} alt="" />
+                            <img className="w-52 rounded-full hover:scale-125 transition-all animate-bounce" src={slider.img} alt="" />
                             <h3 className="mt-2 text-xl">{slider.categoryName}</h3>
 
                         </Link>

@@ -47,6 +47,7 @@ const AddProduct = () => {
                     productCategory,
                     details,
                     timestamp,
+                    status: "available",
                     seller: {
                         name: user?.displayName,
                         image: user?.photoURL,

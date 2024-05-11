@@ -1,28 +1,28 @@
+import { useEffect, useState } from "react";
+import { getUserBookings } from "../../api/bookings";
+import { useAuth } from "../../hooks/useAuth";
+import Spinner from "../../components/Spinner/Spinner";
+import BookingRow from "../../components/TableRow/BookingRow";
+import { Link } from "react-router-dom";
 import PrimaryBtn from "../../components/PrimaryBtn/PrimaryBtn";
 
-import { useEffect, useState } from "react";
-import { useAuth } from "../../hooks/useAuth";
-import { getSellerProducts } from "../../api/products";
-import { Link } from "react-router-dom";
-import Spinner from "../../components/Spinner/Spinner";
-import TableRow from "../../components/TableRow/TableRow";
-
-const MyProducts = () => {
+const MyBookings = () => {
     const { user } = useAuth();
-    const [products, setProducts] = useState([]);
+    const [bookings, setBookings] = useState([]);
     const [loading, setLoading] = useState(true)
-    const fetchProducts = () => {
+    const fetchBookings = () => {
         if (user?.email) {
-            getSellerProducts(user?.email)
+            getUserBookings(user?.email)
                 .then(data => {
-                    setProducts(data)
+                    setBookings(data)
                     setLoading(false)
                 })
         }
+
     }
 
     useEffect(() => {
-        fetchProducts()
+        fetchBookings()
 
     }, [user?.email]);
 
@@ -34,12 +34,12 @@ const MyProducts = () => {
             {loading ? (
                 <Spinner />
             ) :
-                products.length < 1 ? <>
+                bookings.length < 1 ? <>
                     <div className='h-screen text-gray-600 gap-5 flex flex-col justify-center items-center pb-16 text-xl lg:text-3xl'>
-                        You have not post any product yet.
-                        <Link to='/dashboard/add-product'>
+                        You have not booking any product yet.
+                        <Link to='/shop/all'>
                             <PrimaryBtn classes='px-6 py-2 text-medium font-semibold rounded-full'>
-                                Add Product
+                                Shop
                             </PrimaryBtn>
                         </Link>
                     </div>
@@ -53,23 +53,25 @@ const MyProducts = () => {
                                     <tr className="text-left">
                                         <th className="p-3">#</th>
                                         <th className="p-3">Image</th>
-                                        <th className="p-3">Name</th>
-                                        <th className="p-3">price</th>
-                                        <th className="p-3">Product category</th>
-                                        <th className="p-3">Advertise</th>
+                                        <th className="p-3">Customer Name</th>
+                                        <th className="p-3">Customer Number</th>
+                                        <th className="p-3">Price</th>
+                                        <th className="p-3">Transaction id</th>
+                                        <th className="p-3">Seller Name</th>
+
                                         <th className="p-3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
 
                                     {
-                                        products?.map((product, i) =>
-                                            <TableRow
+                                        bookings?.map((booking, i) =>
+                                            <BookingRow
                                                 key={i}
                                                 i={i}
-                                                product={product}
-                                                fetchProducts={fetchProducts}
-                                            ></TableRow>
+                                                booking={booking}
+                                                fetchBookings={fetchBookings}
+                                            ></BookingRow>
                                         )
                                     }
 
@@ -82,4 +84,4 @@ const MyProducts = () => {
     );
 };
 
-export default MyProducts;
+export default MyBookings;

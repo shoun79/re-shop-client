@@ -7,12 +7,10 @@ import { useParams } from "react-router-dom";
 
 const Shop = () => {
 
-    //const homes = [1, 2, 3, 4];
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    //const [categorys, setCategorys] = useState('');
     const { category } = useParams();
-    console.log(category);
+
     useEffect(() => {
         getAllProducts(category)
             .then(data => {
@@ -21,7 +19,7 @@ const Shop = () => {
             })
 
     }, [category]);
-    console.log(products);
+
     return (
         <div className='md:flex justify-center gap-10  '>
             <div className="">
@@ -37,8 +35,8 @@ const Shop = () => {
                                 No product under this category.
                             </div>
                         </> :
-                        <div className='container pb-8 pt-2 mx-auto mt-8'>
-                            <div className='flex flex-wrap'>
+                        <div className='container pb-8 pt-2 mx-auto mt-8 '>
+                            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                                 {
                                     products?.map((item, i) => <ProductCard key={i} item={item} ></ProductCard>)
                                 }

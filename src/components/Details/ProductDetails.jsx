@@ -1,11 +1,24 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { getVerifyStatus } from "../../api/user";
+import { useDateMDY } from "../../hooks/useDateMDY";
+import BookingModal from "../Modal/BookingModal";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProductDetails = () => {
+    const { user } = useAuth();
     const product = useLoaderData();
     const [verify, setVerify] = useState(null);
-
+    const [openModal, setOpenModal] = useState(false);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (openModal) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflowY = 'auto';
+        }
+        return () => document.body.style.overflow = 'auto';
+    }, [openModal]);
 
     useEffect(() => {
         getVerifyStatus(product?.seller?.email)
@@ -15,27 +28,17 @@ const ProductDetails = () => {
             })
     }, [product?.seller?.email]);
 
-    let date = new Date(product?.timestamp);
-
-    // time format
-    let hours = `${date.getHours()}`;
-    let minutes = `${date.getMinutes()}`;
+    const dateMDY = useDateMDY(product?.timestamp);
 
 
-    let newFormat = hours >= 12 ? 'PM' : 'AM';
-
-    // Find current hour in AM-PM Format
-    hours = hours % 12;
-
-    // To display "0" as "12"
-    hours = hours ? hours : 12;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-
-    const time = hours + ':' + minutes + ' ' + newFormat;
-
-
-    /* Date format */
-    let dateMDY = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()} ${time}`;
+    const handleModal = () => {
+        if (!user?.email) {
+            navigate('/login')
+        }
+        else {
+            setOpenModal(true)
+        }
+    }
 
 
     return (
@@ -70,7 +73,7 @@ const ProductDetails = () => {
                     </div>
                 </div>
 
-                <button className="bg-[#D1793E] hover:bg-[#dc600e] focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white  w-full py-4  focus:outline-none">
+                <button onClick={handleModal} className="bg-[#D1793E] hover:bg-[#dc600e] focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-base flex items-center justify-center leading-none text-white  w-full py-4  focus:outline-none">
                     <svg className="mr-3 text-white dark:text-gray-900" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.02301 7.18999C7.48929 6.72386 7.80685 6.12992 7.93555 5.48329C8.06425 4.83666 7.9983 4.16638 7.74604 3.55724C7.49377 2.94809 7.06653 2.42744 6.51835 2.06112C5.97016 1.6948 5.32566 1.49928 4.66634 1.49928C4.00703 1.49928 3.36252 1.6948 2.81434 2.06112C2.26615 2.42744 1.83891 2.94809 1.58665 3.55724C1.33439 4.16638 1.26843 4.83666 1.39713 5.48329C1.52583 6.12992 1.8434 6.72386 2.30968 7.18999L4.66634 9.54749L7.02301 7.18999Z" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M4.66699 4.83333V4.84166" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
@@ -79,6 +82,7 @@ const ProductDetails = () => {
                     </svg>
                     Book now
                 </button>
+                <BookingModal openModal={openModal} setOpenModal={setOpenModal} product={product}></BookingModal>
                 <div>
                     <p className="xl:pr-48 text-base lg:leading-tight leading-normal text-gray-600 dark:text-gray-300 mt-7">{product?.details}</p>
                     <p className="text-base leading-4 mt-7 text-gray-600 dark:text-gray-300">CC: {product?.cc}</p>

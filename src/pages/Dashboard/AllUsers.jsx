@@ -11,7 +11,6 @@ const AllUsers = () => {
     }, []);
 
     const handleRequest = user => {
-        console.log(user);
         makeSellerVerify(user)
             .then(data => {
                 console.log(data)
@@ -78,7 +77,7 @@ const AllUsers = () => {
                             <th className="p-3">#</th>
                             <th className="p-3">Email</th>
                             <th className="p-3">Role</th>
-                            <th className="p-3">Request</th>
+                            <th className="p-3">Request/Status</th>
                             <th className="p-3">Action</th>
                         </tr>
                     </thead>

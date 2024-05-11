@@ -1,4 +1,4 @@
-export const calculateTimeElapsed = (postCreatedAt) => {
+export const useCalculateTimeElapsed = (postCreatedAt) => {
     const currentTime = new Date();
     const postTime = new Date(postCreatedAt);
 

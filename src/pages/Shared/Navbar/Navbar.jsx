@@ -115,6 +115,9 @@ const Navbar = () => {
                                     <Link to='/dashboard'>Dashboard</Link>
                                 </li>
                                 <li className="text-md hover:underline ">
+                                    <Link to='/wishList'>WishList</Link>
+                                </li>
+                                <li className="text-md hover:underline ">
                                     <Link to='/profile-update'>Profile</Link>
                                 </li>
                                 <li onClick={hendleLogout} className="text-md hover:underline ">

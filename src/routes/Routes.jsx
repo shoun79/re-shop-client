@@ -13,11 +13,18 @@ import AddProduct from "../pages/Dashboard/AddProduct";
 import MyProducts from "../pages/Dashboard/MyProducts";
 import ApplyVerify from "../pages/Dashboard/ApplyVerify";
 import AllUsers from "../pages/Dashboard/AllUsers";
+import MyBookings from "../pages/Dashboard/MyBookings";
+import AllBookings from "../pages/Dashboard/AllBookings";
+import BecomeASeller from "../pages/Dashboard/BecomeASeller";
+import ErrorPage from "../pages/Shared/ErrorPage/ErrorPage";
+import WishList from "../pages/WishList/WishList";
+import ReportedProducts from "../pages/Dashboard/ReportedProducts";
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <MainLayout></MainLayout>,
+        errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
                 path: '/',
@@ -47,6 +54,10 @@ export const router = createBrowserRouter([
             {
                 path: '/profile-update',
                 element: <ProfileUpdate></ProfileUpdate>
+            },
+            {
+                path: '/wishList',
+                element: <WishList></WishList>
             }
         ]
     },
@@ -73,6 +84,22 @@ export const router = createBrowserRouter([
             {
                 path: 'all-users',
                 element: <AllUsers></AllUsers>
+            },
+            {
+                path: 'all-bookings',
+                element: <AllBookings></AllBookings>
+            },
+            {
+                path: 'my-bookings',
+                element: <MyBookings></MyBookings>
+            },
+            {
+                path: 'become-seller',
+                element: <BecomeASeller></BecomeASeller>
+            },
+            {
+                path: 'reported-products',
+                element: <ReportedProducts></ReportedProducts>
             }
         ]
     }
