@@ -19,6 +19,9 @@ import BecomeASeller from "../pages/Dashboard/BecomeASeller";
 import ErrorPage from "../pages/Shared/ErrorPage/ErrorPage";
 import WishList from "../pages/WishList/WishList";
 import ReportedProducts from "../pages/Dashboard/ReportedProducts";
+import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
+import SellerRoute from "./SellerRoute";
 
 export const router = createBrowserRouter([
     {
@@ -53,11 +56,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/profile-update',
-                element: <ProfileUpdate></ProfileUpdate>
+                element: <PrivateRoute><ProfileUpdate></ProfileUpdate></PrivateRoute>
             },
             {
                 path: '/wishList',
-                element: <WishList></WishList>
+                element: <PrivateRoute> <WishList></WishList></PrivateRoute>
             }
         ]
     },
@@ -67,39 +70,39 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <Welcome></Welcome>
+                element: <PrivateRoute> <Welcome></Welcome></PrivateRoute>
             },
             {
                 path: 'add-product',
-                element: <AddProduct></AddProduct>
+                element: <SellerRoute> <AddProduct></AddProduct></SellerRoute>
             },
             {
                 path: 'my-products',
-                element: <MyProducts></MyProducts>
+                element: <SellerRoute> <MyProducts></MyProducts></SellerRoute>
             },
             {
                 path: 'apply-verify',
-                element: <ApplyVerify></ApplyVerify>
+                element: <SellerRoute> <ApplyVerify></ApplyVerify></SellerRoute>
             },
             {
                 path: 'all-users',
-                element: <AllUsers></AllUsers>
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path: 'all-bookings',
-                element: <AllBookings></AllBookings>
+                element: <AdminRoute> <AllBookings></AllBookings></AdminRoute>
             },
             {
                 path: 'my-bookings',
-                element: <MyBookings></MyBookings>
+                element: <PrivateRoute> <MyBookings></MyBookings></PrivateRoute>
             },
             {
                 path: 'become-seller',
-                element: <BecomeASeller></BecomeASeller>
+                element: <PrivateRoute><BecomeASeller></BecomeASeller></PrivateRoute>
             },
             {
                 path: 'reported-products',
-                element: <ReportedProducts></ReportedProducts>
+                element: <AdminRoute> <ReportedProducts></ReportedProducts></AdminRoute>
             }
         ]
     }

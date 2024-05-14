@@ -21,7 +21,7 @@ const AdvertisedItems = () => {
     return (
         <>
             {
-                products?.length && <div className="border-b mx-2">
+                products?.length ? <div className="border-b mx-2">
                     <div className="text-center">
                         <SectionTitle title='Advertised items'></SectionTitle>
                     </div>
@@ -37,7 +37,7 @@ const AdvertisedItems = () => {
                             </div>
                         </div>
                     }
-                </div>
+                </div> : ''
             }
         </>
 

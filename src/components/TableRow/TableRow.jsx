@@ -8,7 +8,7 @@ import SmallSpinner from "../Spinner/SmallSpinner";
 const TableRow = ({ product, i, fetchProducts }) => {
     const [openModal, setOpenModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    console.log(product);
     useEffect(() => {
         if (openModal) {
             document.body.style.overflow = 'hidden';
@@ -93,7 +93,9 @@ const TableRow = ({ product, i, fetchProducts }) => {
             <td className="text-center">
                 <span className=" font-semibold text-sm rounded-md ">
                     {
-                        product?.advertised === "true" ? <span className="text-green-500">Advertised</span> : <button onClick={() => handleAdvertised(product)} className="bg-[#D1793E] hover:bg-[#dc600e] px-2 py-1 text-white mb-1"> {isLoading ? <SmallSpinner></SmallSpinner> : 'Advertise'}</button>
+                        product.status === "available" ?
+                            (
+                                product?.advertised === "true" ? <span className="text-green-500">Advertised</span> : <button onClick={() => handleAdvertised(product)} className="bg-[#D1793E] hover:bg-[#dc600e] px-2 py-1 text-white mb-1"> {isLoading ? <SmallSpinner></SmallSpinner> : 'Advertise'}</button>) : <span className="text-red-500">Sold</span>
                     }
 
 

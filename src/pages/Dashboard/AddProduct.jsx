@@ -16,7 +16,7 @@ const AddProduct = () => {
     const navigate = useNavigate();
     const [previewImg, setPreviewImg] = useState('');
 
-
+    console.log('previewImg', previewImg);
     const handleSubmit = e => {
         e.preventDefault();
         const form = e.target;
@@ -30,7 +30,7 @@ const AddProduct = () => {
         const image = form.image.files[0];
         const details = form.details.value;
         const timestamp = new Date();
-        console.log(condition);
+
         setIsLoading(true)
         getImageUrl(image)
             .then(imageUrl => {
@@ -160,7 +160,7 @@ const AddProduct = () => {
                                 <option disabled>Select a category</option>
                                 <option value="bajaj">Bajaj</option>
                                 <option value="tvs">Tvs</option>
-                                <option value='yahama'>Yahama</option>
+                                <option value='yamaha'>Yahama</option>
                                 <option value='honda'>Honda</option>
                             </select>
                         </div>

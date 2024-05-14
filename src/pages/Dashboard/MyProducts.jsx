@@ -56,7 +56,7 @@ const MyProducts = () => {
                                         <th className="p-3">Name</th>
                                         <th className="p-3">price</th>
                                         <th className="p-3">Product category</th>
-                                        <th className="p-3">Advertise</th>
+                                        <th className="p-3">Advertise/Status</th>
                                         <th className="p-3">Action</th>
                                     </tr>
                                 </thead>

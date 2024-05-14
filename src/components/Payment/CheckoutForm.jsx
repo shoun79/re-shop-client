@@ -5,7 +5,7 @@ import { getPaymentIntent, saveBooking } from "../../api/bookings";
 import PrimaryBtn from "../PrimaryBtn/PrimaryBtn";
 import Swal from "sweetalert2";
 import SmallSpinner from "../Spinner/SmallSpinner";
-import { updateProduct } from "../../api/products";
+import { delWishListAfterBook, updateProduct } from "../../api/products";
 
 const CheckoutForm = ({ bookingData, product }) => {
     const [clientSecret, setClientSecret] = useState('');
@@ -16,7 +16,7 @@ const CheckoutForm = ({ bookingData, product }) => {
     const stripe = useStripe();
     const elements = useElements();
     const { price, name, email } = bookingData;
-
+    console.log(product?._id);
     useEffect(() => {
         getPaymentIntent(parseFloat(price))
             .then(data => {
@@ -92,6 +92,8 @@ const CheckoutForm = ({ bookingData, product }) => {
                     }
                     updateProduct(product?._id, updatedData)
                         .then(() => {
+
+                            delWishListAfterBook(product?._id)
                             setProcessing(false)
                             Swal.fire({
                                 position: "top",

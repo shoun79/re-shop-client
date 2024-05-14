@@ -45,8 +45,9 @@ export const getAdvertisedProducts = async () => {
     const data = await res.json();
     return data;
 }
-export const getWishListProducts = async () => {
-    const url = `${import.meta.env.VITE_APP_API_URL}/products-wishList`;
+
+export const getWishListProducts = async (email) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/wishlist/${email}`;
     const res = await fetch(url, {
         method: 'GET',
         headers: {
@@ -57,10 +58,95 @@ export const getWishListProducts = async () => {
     const data = await res.json();
     return data;
 }
+export const getWishListStatus = async (_id, email) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/wishlist-status?email=${email}&id=${_id}`;
+    const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        }
+    });
+    const data = await res.json();
+    return data;
+}
+
+
+
+export const addToWishList = async (wishListData) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/wishlist-add`;
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        },
+        body: JSON.stringify(wishListData)
+    });
+    const data = await res.json();
+    return data;
+}
+export const deleteWishList = async (id) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/wishlist/${id}`;
+    const res = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        },
+    });
+    const data = await res.json();
+    return data;
+}
+export const delWishListAfterBook = async (id) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/wishlist-booking/${id}`;
+    const res = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        },
+    });
+    const data = await res.json();
+    return data;
+}
+
+
+
+//add a report
+export const addToReport = async (reportData) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/products-report`;
+    const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        },
+        body: JSON.stringify(reportData)
+    })
+    const data = await res.json();
+    return data;
+}
+
+//get report products
 export const getReportProducts = async () => {
     const url = `${import.meta.env.VITE_APP_API_URL}/products-report`;
     const res = await fetch(url, {
         method: 'GET',
+        headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('reShop-token')}`
+        }
+    });
+    const data = await res.json();
+    return data;
+}
+//get report products
+export const delReportProducts = async (id) => {
+    const url = `${import.meta.env.VITE_APP_API_URL}/products-report/${id}`;
+    const res = await fetch(url, {
+        method: 'DELETE',
         headers: {
             'content-type': 'application/json',
             authorization: `Bearer ${localStorage.getItem('reShop-token')}`

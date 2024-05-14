@@ -31,6 +31,7 @@ const Shop = () => {
                         <Spinner />
                     ) : products.length < 1 ?
                         <>
+
                             <div className='h-screen text-gray-600 gap-5 flex flex-col items-center  text-xl lg:text-3xl mt-16'>
                                 No product under this category.
                             </div>

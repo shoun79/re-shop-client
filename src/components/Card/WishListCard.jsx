@@ -1,18 +1,18 @@
-import { Link, useNavigate } from "react-router-dom";
-import PrimaryBtn from "../PrimaryBtn/PrimaryBtn";
-import { getVerifyStatus } from "../../api/user";
 import { useEffect, useState } from "react";
-import { useCalculateTimeElapsed } from "../../hooks/useCaluseCulateTimeElapsed";
-import { addToReport, addToWishList, getWishListStatus } from "../../api/products";
-import Swal from "sweetalert2";
 import { useAuth } from "../../hooks/useAuth";
-
-const ProductCard = ({ item }) => {
+import { Link } from "react-router-dom";
+import { useCalculateTimeElapsed } from "../../hooks/useCaluseCulateTimeElapsed";
+import { getVerifyStatus } from "../../api/user";
+import { deleteWishList, getWishListStatus, addToReport } from "../../api/products";
+import Swal from "sweetalert2";
+import PrimaryBtn from "../PrimaryBtn/PrimaryBtn";
+import { useNavigate } from "react-router-dom";
+const WishListCard = ({ item }) => {
     const { user } = useAuth();
     const [verify, setVerify] = useState(null);
     const [wishListStatus, setWishListStatus] = useState('');
-
     const navigate = useNavigate();
+
 
     const timeAgo = useCalculateTimeElapsed(item?.timestamp);
 
@@ -25,73 +25,47 @@ const ProductCard = ({ item }) => {
             })
     }, [item?.seller?.email]);
 
-
-
     useEffect(() => {
-        getWishListStatus(item?._id, user?.email)
+        getWishListStatus(item?.productId, user?.email)
             .then(data => {
 
                 setWishListStatus(data)
 
             })
-    }, [item?._id, user?.email]);
-
+    }, [item?.productId, user?.email]);
 
     //WishList add
-    const handleWishList = item => {
+    const handleWishListDelete = item => {
 
-        if (user) {
-            const wishListData = {
-                productId: item?._id,
-                imageUrl: item?.imageUrl,
-                location: item?.location,
-                name: item?.name,
-                advertised: item?.advertised,
-                cc: item?.cc,
-                condition: item?.condition,
-                details: item?.details,
-                number: item?.number,
-                originalPrice: item?.originalPrice,
-                price: item?.price,
-                productCategory: item?.productCategory,
-                purchase: item?.purchase,
-                report: item?.report,
-                status: item?.status,
-                timestamp: item?.timestamp,
-                seller: {
-                    email: item?.seller?.email,
-                    image: item?.seller?.image,
-                    name: item?.seller?.name
-                },
-                user: {
-                    name: user?.displayName,
-                    email: user?.email
-                }
-            }
-
-            addToWishList(wishListData)
-                .then(data => {
-                    if (data.insertedId) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteWishList(item?._id)
+                    .then(data => {
                         console.log(data);
-                        Swal.fire({
-                            position: "top",
-                            icon: "success",
-                            title: "Product added in wishList",
-                            showConfirmButton: false,
-                            timer: 2500
-                        })
-                        navigate('/wishList')
+                        if (data.deletedCount) {
 
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Successfully deleted.",
+                                icon: "success"
+                            });
+                            window.location.reload();
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
 
-                    }
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        } else {
-            navigate('/login')
-        }
-
+            }
+        });
 
 
 
@@ -109,6 +83,9 @@ const ProductCard = ({ item }) => {
                 seller: {
                     name: item?.seller?.name,
                     email: item?.seller?.email
+                },
+                user: {
+                    name: user
                 }
             }
             addToReport(reportData)
@@ -142,9 +119,12 @@ const ProductCard = ({ item }) => {
                     <div className="relative flex h-48 w-full justify-center lg:h-[280px]">
                         <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
 
-                            <div className="flex items-center">
+                            <div onClick={() => handleWishListDelete(item)} className="flex items-center">
                                 {
-                                    wishListStatus === true ? <svg width={30} className="  stroke-2 fill-red-500 stroke-white " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" > <g strokeWidth="0"></g> <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g> <g id="SVGRepo_iconCarrier"><path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"></path></g></svg> : <svg onClick={() => handleWishList(item)} width={30} className="fill-transparent stroke-red-500 stroke-2 hover:fill-red-500 hover:stroke-red-500 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ cursor: 'pointer' }}> <g strokeWidth="0"></g> <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g> <g id="SVGRepo_iconCarrier"><path d="M2 9.1371C2 14 6.01943 16.5914 8.96173 18.9109C10 19.7294 11 20.5 12 20.5C13 20.5 14 19.7294 15.0383 18.9109C17.9806 16.5914 22 14 22 9.1371C22 4.27416 16.4998 0.825464 12 5.50063C7.50016 0.825464 2 4.27416 2 9.1371Z"></path></g></svg>
+                                    wishListStatus === true && <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6 h-6 fill-red-500 cursor-pointer">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                    </svg>
+
                                 }
 
                             </div>
@@ -184,7 +164,7 @@ const ProductCard = ({ item }) => {
 
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-6 text-sm md:text-base">
-                        <Link to={`/product-details/${item?._id}`}><PrimaryBtn>Details</PrimaryBtn></Link>
+                        <Link to={`/product-details/${item?.productId}`}><PrimaryBtn>Details</PrimaryBtn></Link>
 
                         <div className="relative mx-auto  p-2 rounded-md w-fit h-fit">
                             {verify && verify === 'verified' &&
@@ -202,8 +182,7 @@ const ProductCard = ({ item }) => {
                 </div>
             }
         </>
-
     );
 };
 
-export default ProductCard;
+export default WishListCard;

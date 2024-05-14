@@ -1,7 +1,8 @@
 import Swal from "sweetalert2";
-import { deleteProduct } from "../../api/products";
+import { delReportProducts, deleteProduct } from "../../api/products";
 
 const ReportRow = ({ product, i, fetchProducts }) => {
+    console.log(product);
     const handleDelete = product => {
         Swal.fire({
             title: "Are you sure?",
@@ -13,16 +14,18 @@ const ReportRow = ({ product, i, fetchProducts }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                deleteProduct(product._id)
+                deleteProduct(product.productId)
                     .then(data => {
                         console.log(data);
                         if (data.deletedCount) {
+                            delReportProducts(product?.productId)
                             fetchProducts()
                             Swal.fire({
                                 title: "Deleted!",
-                                text: "Your product has been deleted.",
+                                text: "Product has been deleted.",
                                 icon: "success"
                             });
+                            window.location.reload();
                         }
                     })
 

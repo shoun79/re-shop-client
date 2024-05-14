@@ -2,7 +2,7 @@ import Swal from "sweetalert2";
 import { deleteBooking } from "../../api/bookings";
 
 const BookingRow = ({ booking, i, fetchBookings }) => {
-
+    console.log(booking);
     const handleDelete = booking => {
 
         Swal.fire({

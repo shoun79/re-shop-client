@@ -12,7 +12,6 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
     //const { user } = useAuth();
     const [condition, setCondition] = useState(product.condition);
     const [productCategory, setProductCategory] = useState(product.productCategory);
-    const [showName, setShowName] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [previewImg, setPreviewImg] = useState('');
@@ -52,7 +51,7 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
                     details,
 
                 }
-                //setProductData({ ...updateProductData })
+
                 updateProduct(id, updateProductData)
                     .then(data => {
                         if (data.modifiedCount) {
@@ -71,6 +70,9 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
                             navigate('/dashboard/my-products')
                         }
 
+                    }).catch(err => {
+                        setIsLoading(false)
+                        console.log(err)
                     })
             })
             .catch(err => {
@@ -81,8 +83,6 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
 
     const handleImageChange = image => {
         setPreviewImg(window.URL.createObjectURL(image))
-
-        setShowName(image)
     }
 
     return (
@@ -133,7 +133,7 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
                                             <input defaultValue={product?.cc} id="cc" type="number" placeholder="CC" className="w-full rounded-md focus:ring focus:ri focus:ri border border-gray-500 text-gray-900 pl-1" />
                                         </div>
 
-                                        <div className="col-span-full sm:col-span-2">
+                                        {/* <div className="col-span-full sm:col-span-2">
                                             <label htmlFor='image' className='block mb-2 text-sm'>
                                                 Select Image:
                                             </label>
@@ -145,9 +145,18 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
                                                     <p className="text-lg font-medium"> {showName.name ? showName.name.length > 6 ? showName.name.slice(0, 6) + '...' : showName.name : 'Upload'}</p>
                                                 </label>
                                                 <input
-
                                                     onChange={e => handleImageChange(e.target.files[0])}
                                                     className="hidden" id="file" type="file" name='image' />
+                                                {previewImg && <img src={previewImg} alt='preview image' className='w-20 h-16' />}
+                                            </div>
+                                        </div> */}
+                                        <div className="col-span-full sm:col-span-2">
+                                            <label htmlFor='image' className='block mb-2 text-sm'>
+                                                Update Image:
+                                            </label>
+                                            <div className="my-5 flex justify-center">
+
+                                                <input onChange={e => handleImageChange(e.target.files[0])} type="file" name="image" />
 
 
                                                 {previewImg ? <img src={previewImg} alt='preview image' className='w-20 h-16' /> : <img src={product?.imageUrl} alt='preview image' className='w-20 h-16' />}
@@ -170,6 +179,7 @@ const EditModal = ({ openModal, setOpenModal, product, fetchProducts, id }) => {
                                                 <option value='fair'>Fair</option>
                                             </select>
                                         </div>
+
                                         <div className="col-span-full sm:col-span-3">
                                             <label htmlFor="Condition" className="text-sm">Product category</label>
                                             <select defaultValue={product?.productCategory} required onChange={(e) => setProductCategory(e.target.value)} className="select select-bordered w-full max-w-xs border border-gray-500 text-gray-900">

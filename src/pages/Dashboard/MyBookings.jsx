@@ -45,7 +45,7 @@ const MyBookings = () => {
                     </div>
                 </> :
                     <div className="container p-2 mx-auto sm:p-4 dark:text-gray-100">
-                        <h2 className="mb-4 text-2xl font-semibold leadi">MyProducts</h2>
+                        <h2 className="mb-4 text-2xl font-semibold leadi">My Bookings</h2>
                         <div className="overflow-x-auto">
                             <table className="min-w-full text-xs">
 
@@ -53,7 +53,7 @@ const MyBookings = () => {
                                     <tr className="text-left">
                                         <th className="p-3">#</th>
                                         <th className="p-3">Image</th>
-                                        <th className="p-3">Customer Name</th>
+                                        <th className="p-3">Product Name</th>
                                         <th className="p-3">Customer Number</th>
                                         <th className="p-3">Price</th>
                                         <th className="p-3">Transaction id</th>
