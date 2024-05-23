@@ -51,6 +51,7 @@ const Category = () => {
                         <Link to={`/shop/${slider.categoryName.toLocaleLowerCase()}`} className="flex flex-col justify-center items-center">
                             <img className="w-52 rounded-full  category-img bounce" src={slider.img} alt="" />
 
+
                             <h3 className="mt-2 text-xl">{slider.categoryName}</h3>
 
                         </Link>
