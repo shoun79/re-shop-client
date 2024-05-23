@@ -2,6 +2,8 @@ import { useState } from "react";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
 import { Link } from "react-router-dom";
 
+import './Banner.css'
+
 export const CarouselMain = () => {
     const [currentSlider, setCurrentSlider] = useState(0);
     const sliders = [{ img: "https://images.unsplash.com/photo-1598808503491-a8ebebc0b55d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHVzZWQlMjBtb3RvcmJpa2V8ZW58MHwxfDB8fHww", tags: "Bike", }, { img: "https://images.unsplash.com/photo-1519078156762-58b4d1756729?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlZCUyMG1vdG9yYmlrZXxlbnwwfDF8MHx8fDA%3D", tags: "Bike", }, { img: "https://images.unsplash.com/photo-1600705722908-bab1e61c0b4d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fHVzZWQlMjBtb3RvcmJpa2V8ZW58MHwxfDB8fHww", tags: "Bike", }, { img: "https://images.unsplash.com/photo-1598808503491-a8ebebc0b55d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzB8fGluZGlhbiUyMG1vdG9yYmlrZXxlbnwwfDF8MHx8fDA%3D", tags: "Bike", }, { img: "https://plus.unsplash.com/premium_photo-1661893953411-6d32f9baba97?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGluZGlhbiUyMG1vdG9yYmlrZXxlbnwwfDF8MHx8fDA%3D", tags: "Bike", },];
@@ -48,7 +50,16 @@ const Banner = () => {
             <div className="w-2/3 lg:w-1/3 text-center lg:text-left space-y-2 lg:space-y-5 py-5">
                 <h1 className="text-lg md:text-2xl lg:text-[40px] font-bold">Buy & Sell Second hand Bike!</h1>
                 <p className="text-[#616161] text-xs md:text-lg   pb-4">Get Decent Products At Much Lower Prices</p>
-                <Link to='/shop/all'><PrimaryBtn>Start Shopping </PrimaryBtn></Link>
+                <Link to='/shop/all'><PrimaryBtn>
+
+                    <div className="wrapper">
+                        <svg>
+                            <text x="50%" y="50%" dy=".35em" textAnchor="middle">
+                                Start Shopping
+                            </text>
+                        </svg>
+                    </div>
+                </PrimaryBtn></Link>
             </div>
             <CarouselMain />
         </div>

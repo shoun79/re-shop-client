@@ -4,10 +4,13 @@ import { useState } from "react";
 import Spinner from "../../components/Spinner/Spinner";
 
 import BookingRow from "../../components/TableRow/BookingRow";
+import { useTitle } from "../../hooks/useTitle";
 
 const AllBookings = () => {
     const [bookings, setBookings] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    useTitle('All Bookings') //for page title
+
     const fetchBookings = () => {
         getAllBookings()
             .then(data => {

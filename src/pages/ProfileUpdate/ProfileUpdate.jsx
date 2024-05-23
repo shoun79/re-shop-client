@@ -5,14 +5,15 @@ import SmallSpinner from "../../components/Spinner/SmallSpinner";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { setAuthToken } from "../../api/auth";
+import { useTitle } from "../../hooks/useTitle";
 //import { saveUserInfo } from "../../api/user";
 
 const ProfileUpdate = () => {
     const { user, updateUserProfile, loading, setLoading } = useAuth();
     const [showName, setShowName] = useState({})
-    // const navigate = useNavigate();
-    // const location = useLocation();
-    //const from = location.state?.form?.pathname || '/';
+
+    useTitle('Profile Update') //for page title
+
     const handleSubmit = e => {
         setLoading(true)
         e.preventDefault();

@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import SmallSpinner from "../../components/Spinner/SmallSpinner";
 import { useState } from "react";
 import { setAuthToken } from "../../api/auth";
+import { useTitle } from "../../hooks/useTitle";
 
 const SignUp = () => {
     const { createUser, signInWithGoogle, updateUserProfile, loading, setLoading } = useAuth();
@@ -15,6 +16,7 @@ const SignUp = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.form?.pathname || '/';
+    useTitle('Sign Up') //for page title
     const handleSubmit = e => {
         setLoading(true)
         e.preventDefault();

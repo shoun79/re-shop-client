@@ -5,12 +5,15 @@ import { getImageUrl } from "../../api/getImageUrl";
 import PrimaryBtn from "../../components/PrimaryBtn/PrimaryBtn";
 import SmallSpinner from "../../components/Spinner/SmallSpinner";
 import Spinner from "../../components/Spinner/Spinner";
+import { useTitle } from "../../hooks/useTitle";
 
 const ApplyVerify = () => {
     const { user } = useAuth();
     const [verify, setVerify] = useState(null);
     const [loading, setLoading] = useState(true);
     const [previewImg, setPreviewImg] = useState('');
+    useTitle('Apply Verify') //for page title
+
     useEffect(() => {
         setLoading(true)
         getVerifyStatus(user?.email)

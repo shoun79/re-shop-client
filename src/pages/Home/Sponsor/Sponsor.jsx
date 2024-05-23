@@ -1,7 +1,10 @@
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const Sponsor = () => {
     return (
-        <div>
+        <div data-aos="fade-up" data-aos-duration="3000" data-aos-anchor-placement="top-bottom" data-aos-delay="500">
             <hr className="border-gray-200 my-20 dark:border-gray-700" />
 
             <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">

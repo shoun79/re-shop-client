@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { getUserRole } from "../../api/user";
 import Spinner from "../../components/Spinner/Spinner";
+import { useTitle } from "../../hooks/useTitle";
 
 const Welcome = () => {
     const { user } = useAuth();
     const [role, setRole] = useState(null);
     const [loading, setLoading] = useState(true);
+    useTitle('Dashboard') //for page title
+
     useEffect(() => {
         getUserRole(user?.email)
             .then(data => {

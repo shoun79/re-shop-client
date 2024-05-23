@@ -1,7 +1,9 @@
-
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 const Footer = () => {
     return (
-        <footer className="flex flex-col">
+        <footer data-aos="fade-up" data-aos-duration="3000" data-aos-anchor-placement="top-bottom" data-aos-delay="500" className="flex flex-col">
             <div className="flex flex-col items-center justify-around gap-5 bg-sky-50 py-8 md:flex-row md:gap-0">
                 <aside className="flex items-center justify-center gap-3 text-xl">
                     <p>Re Shop</p>

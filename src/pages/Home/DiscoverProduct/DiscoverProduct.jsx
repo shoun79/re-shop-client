@@ -5,6 +5,9 @@ import ProductCard from "../../../components/Card/ProductCard";
 import { getAllProducts } from "../../../api/products";
 import { Link } from "react-router-dom";
 import PrimaryBtn from "../../../components/PrimaryBtn/PrimaryBtn";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
 
 const DiscoverProduct = () => {
     const [products, setProducts] = useState([]);
@@ -22,7 +25,7 @@ const DiscoverProduct = () => {
 
 
     return (
-        products.length ? <div className="mt-28">
+        products.length ? <div data-aos="fade-up" data-aos-duration="3000" data-aos-anchor-placement="top-bottom" data-aos-delay="500" className="mt-28">
             <div className="text-center">
                 <SectionTitle title='Discover Our Features'></SectionTitle>
             </div>

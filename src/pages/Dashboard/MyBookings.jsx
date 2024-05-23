@@ -5,11 +5,14 @@ import Spinner from "../../components/Spinner/Spinner";
 import BookingRow from "../../components/TableRow/BookingRow";
 import { Link } from "react-router-dom";
 import PrimaryBtn from "../../components/PrimaryBtn/PrimaryBtn";
+import { useTitle } from "../../hooks/useTitle";
 
 const MyBookings = () => {
     const { user } = useAuth();
     const [bookings, setBookings] = useState([]);
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(true);
+    useTitle('My Bookings') //for page title
+
     const fetchBookings = () => {
         if (user?.email) {
             getUserBookings(user?.email)

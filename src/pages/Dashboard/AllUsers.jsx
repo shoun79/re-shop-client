@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import { deleteAUser, getAllUsers, makeSellerVerify } from "../../api/user";
 import { useEffect, useState } from "react";
 import UsersTableRow from "../../components/TableRow/UsersTableRow";
+import { useTitle } from "../../hooks/useTitle";
 
 const AllUsers = () => {
     const [loading, setLoading] = useState(false)
@@ -9,6 +10,7 @@ const AllUsers = () => {
     useEffect(() => {
         getUsers()
     }, []);
+    useTitle('All Users') //for page title
 
     const handleRequest = user => {
         makeSellerVerify(user)

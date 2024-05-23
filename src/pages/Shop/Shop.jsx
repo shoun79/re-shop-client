@@ -4,12 +4,14 @@ import ProductCard from "../../components/Card/ProductCard";
 import SideNavShop from "../../components/SideNavShop/SideNavShop";
 import { getAllProducts } from "../../api/products";
 import { useParams } from "react-router-dom";
+import { useTitle } from "../../hooks/useTitle";
 
 const Shop = () => {
 
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const { category } = useParams();
+    useTitle('Shop') //for page title
 
     useEffect(() => {
         getAllProducts(category)

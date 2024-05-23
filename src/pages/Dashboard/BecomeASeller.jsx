@@ -5,12 +5,15 @@ import PrimaryBtn from "../../components/PrimaryBtn/PrimaryBtn";
 import SmallSpinner from "../../components/Spinner/SmallSpinner";
 import { getImageUrl } from "../../api/getImageUrl";
 import { useNavigate } from "react-router-dom";
+import { useTitle } from "../../hooks/useTitle";
 
 const BecomeASeller = () => {
     const { user } = useAuth();
     const [role, setRole] = useState(null);
     const [verify, setVerify] = useState(null);
     console.log(verify);
+    useTitle('Become Seller') //for page title
+
     const [loading, setLoading] = useState(true);
     const [previewImg, setPreviewImg] = useState('');
     const navigate = useNavigate();

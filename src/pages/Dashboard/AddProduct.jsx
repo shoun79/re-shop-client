@@ -6,6 +6,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { addProduct } from "../../api/products";
 import Swal from "sweetalert2";
 import SmallSpinner from "../../components/Spinner/SmallSpinner";
+import { useTitle } from "../../hooks/useTitle";
 
 const AddProduct = () => {
     const { user } = useAuth();
@@ -15,6 +16,7 @@ const AddProduct = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const [previewImg, setPreviewImg] = useState('');
+    useTitle('Add Product') //for page title
 
     console.log('previewImg', previewImg);
     const handleSubmit = e => {

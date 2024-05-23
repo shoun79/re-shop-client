@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import { getReportProducts } from "../../api/products";
 import Spinner from "../../components/Spinner/Spinner";
 import ReportRow from "../../components/TableRow/ReportRow";
+import { useTitle } from "../../hooks/useTitle";
 
 const ReportedProducts = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    useTitle('Reported Products') //for page title
+
     const fetchProducts = () => {
 
         getReportProducts()

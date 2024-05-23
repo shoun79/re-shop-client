@@ -1,3 +1,4 @@
+import { useTitle } from "../../hooks/useTitle";
 
 const Blog = () => {
     const date = new Date();
@@ -5,6 +6,9 @@ const Blog = () => {
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
+
+    useTitle('Blog') //for page title
+
     return (
         <div className="bg-gray-800 text-gray-50 my-10">
             <div className="container grid grid-cols-12 mx-auto">
